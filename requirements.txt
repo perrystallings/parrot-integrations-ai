@@ -1,0 +1,2 @@
+parrot-integrations-core
+openai
