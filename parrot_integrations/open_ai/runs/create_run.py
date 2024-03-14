@@ -1,14 +1,14 @@
 from parrot_integrations.open_ai.runs import OBJECT_SCHEMA, format_run
 
-def get_details():
+
+def get_schema():
     return dict(
-        name='Run a OpenAI Thread',
-        description='',
+        name='Run Thread',
+        description='Run an OpenAI Thread',
         is_trigger=False,
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='',
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(

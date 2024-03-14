@@ -1,7 +1,7 @@
 from parrot_integrations.open_ai.threads import OBJECT_SCHEMA, format_thread
 
 
-def get_details():
+def get_schema():
     return dict(
         name='Create Thread',
         description='Create an OpenAPI thread',

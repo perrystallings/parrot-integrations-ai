@@ -1,7 +1,7 @@
 from parrot_integrations.open_ai.messages import OBJECT_SCHEMA, format_message
 
 
-def get_details():
+def get_schema():
     return dict(
         name='Get Thread messages',
         description='Get Thread messages',
@@ -9,7 +9,6 @@ def get_details():
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='',
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(
@@ -26,6 +25,7 @@ def get_details():
                 ),
                 outputs=dict(
                     type='array',
+                    maxItems=25,
                     items=OBJECT_SCHEMA
                 ),
             )
@@ -33,7 +33,7 @@ def get_details():
     )
 
 
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
+def process(inputs, integration, **kwargs):
     from parrot_integrations.open_ai import get_client
     client = get_client(integration=integration)
     return [format_message(message=message) for message in client.beta.threads.messages.list(**inputs)]

@@ -3,8 +3,8 @@ from parrot_integrations.open_ai.runs import OBJECT_SCHEMA, format_run
 
 def get_schema():
     return dict(
-        name='Get Run',
-        description='Get an OpenAI Run details',
+        name='List Runs',
+        description='List runs for a particular Thread',
         is_trigger=False,
         schema=dict(
             type='object',
@@ -15,19 +15,27 @@ def get_schema():
                     type='object',
                     additionalProperties=False,
                     required=[
-                        'run_id',
-                        'thread_id'
+                        'thread_id',
                     ],
                     properties=dict(
-                        run_id=dict(
-                            type='string',
-                        ),
                         thread_id=dict(
                             type='string',
                         ),
+                        after=dict(
+                            type='string'
+                        ),
+                        before=dict(
+                            type='string'
+                        ),
+                        order=dict(
+                            type='string'
+                        )
                     )
                 ),
-                outputs=OBJECT_SCHEMA,
+                outputs=dict(
+                    type='array',
+                    items=OBJECT_SCHEMA
+                ),
             )
         )
     )
@@ -36,5 +44,4 @@ def get_schema():
 def process(inputs, integration, **kwargs):
     from parrot_integrations.open_ai import get_client
     client = get_client(integration=integration)
-    run = client.beta.threads.runs.retrieve(**inputs)
-    return format_run(run=run)
+    return [format_run(run=run) for run in client.beta.threads.runs.list(**inputs)]

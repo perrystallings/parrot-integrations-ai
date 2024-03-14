@@ -2,7 +2,9 @@ OBJECT_SCHEMA = dict(
     type='object',
     additionalProperties=False,
     required=[
-        'file_id', 'purpose'
+        'file_id',
+        'purpose',
+        'filename'
     ],
     properties=dict(
         file_id=dict(type='string'),
@@ -10,6 +12,7 @@ OBJECT_SCHEMA = dict(
         purpose=dict(type='string', enum=['assistants', 'fine-tune'])
     )
 )
+
 
 def format_file(file):
     return dict(

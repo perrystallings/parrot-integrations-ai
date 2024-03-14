@@ -1,13 +1,11 @@
-from parrot_integrations.open_ai.files import OBJECT_SCHEMA
-def get_details():
+def get_schema():
     return dict(
-        name='',
-        description='',
+        name='Delete File',
+        description='Delete OpenAI File',
         is_trigger=False,
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='',
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(
@@ -25,7 +23,7 @@ def get_details():
                 outputs=dict(
                     type='object',
                     additionalProperties=True,
-                    required=['file_id'],
+                    required=['file_id', 'deleted'],
                     properties=dict(
                         file_id=dict(
                             type='string'

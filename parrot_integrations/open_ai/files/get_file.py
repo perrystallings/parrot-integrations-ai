@@ -1,5 +1,7 @@
 from parrot_integrations.open_ai.files import format_file, OBJECT_SCHEMA
-def get_details():
+
+
+def get_schema():
     return dict(
         name='Get File',
         description='Get File from OpenAI',
@@ -7,7 +9,6 @@ def get_details():
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='',
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(

@@ -1,12 +1,11 @@
-def get_details():
+def get_schema():
     return dict(
-        name='',
-        description='',
+        name='Delete Assistant',
+        description='Delete and OpenAI assistant',
         is_trigger=False,
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='',
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(
@@ -24,7 +23,7 @@ def get_details():
                 outputs=dict(
                     type='object',
                     additionalProperties=True,
-                    required=['assistant_id'],
+                    required=['assistant_id', 'deleted'],
                     properties=dict(
                         assistant_id=dict(
                             type='string'

@@ -1,7 +1,7 @@
 from parrot_integrations.open_ai.assistants import OBJECT_SCHEMA, format_assistant
 
 
-def get_details():
+def get_schema():
     return dict(
         name='Create Assistant',
         description='Create an OpenAi Assistant',
@@ -15,14 +15,14 @@ def get_details():
                     type='object',
                     additionalProperties=False,
                     required=[
-                        'model_id'
+                        'model_id',
                         'instructions'
                     ],
                     properties=dict(
                         name=dict(
                             type='string'
                         ),
-                        descrition=dict(
+                        description=dict(
                             type="string"
                         ),
                         model_id=dict(
@@ -59,5 +59,6 @@ def get_details():
 def process(inputs, integration, **kwargs):
     from parrot_integrations.open_ai import get_client
     client = get_client(integration=integration)
+    inputs['model'] = inputs.pop('model_id')
     assistant = client.beta.assistants.create(**inputs)
     return format_assistant(assistant=assistant)

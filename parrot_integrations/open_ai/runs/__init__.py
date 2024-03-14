@@ -1,9 +1,18 @@
 OBJECT_SCHEMA = dict(
     type='object',
     additionalProperties=False,
+    required=[
+        'run_id',
+        'status',
+        'thread_id',
+        'assistant_id',
+        'created_ts',
+        'metadata'
+    ],
     properties=dict(
         run_id=dict(
-            type='string'),
+            type='string'
+        ),
         status=dict(
             type='string',
             enum=[
@@ -18,16 +27,16 @@ OBJECT_SCHEMA = dict(
             type='string'
         ),
         created_ts=dict(
-            type='int'
+            type='number'
         ),
         started_ts=dict(
-            type='int'
+            type=['number','null']
         ),
         completed_ts=dict(
-            type='int'
+            type=['number','null']
         ),
         failed_ts=dict(
-            type='int'
+            type=['number','null']
         ),
         metadata=dict(
             type='object',

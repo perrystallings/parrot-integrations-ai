@@ -1,7 +1,7 @@
 from parrot_integrations.open_ai.threads import OBJECT_SCHEMA, format_thread
 
 
-def get_details():
+def get_schema():
     return dict(
         name='Get Thread',
         description='Get OpenAI Thread Details',
@@ -9,7 +9,6 @@ def get_details():
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='',
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(
@@ -26,7 +25,7 @@ def get_details():
     )
 
 
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
+def process(inputs, integration, **kwargs):
     from parrot_integrations.open_ai import get_client
     client = get_client(integration=integration)
     thread = client.beta.threads.retrieve(thread_id=inputs['thread_id'])

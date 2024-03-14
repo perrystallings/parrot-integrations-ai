@@ -1,14 +1,14 @@
 from parrot_integrations.open_ai.messages import OBJECT_SCHEMA, format_message
 
-def get_details():
+
+def get_schema():
     return dict(
-        name='',
-        description='',
+        name='Get Message',
+        description='Get specific message in a thread',
         is_trigger=False,
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='',
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(
@@ -29,7 +29,7 @@ def get_details():
     )
 
 
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
+def process(inputs, integration, **kwargs):
     from parrot_integrations.open_ai import get_client
     client = get_client(integration=integration)
     message = client.beta.threads.messages.retrieve(**inputs)

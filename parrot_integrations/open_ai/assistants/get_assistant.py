@@ -1,9 +1,7 @@
-from parrot_integrations.core.schemas import format_input_schema
-
 from parrot_integrations.open_ai.assistants import OBJECT_SCHEMA, format_assistant
 
 
-def get_details():
+def get_schema():
     return dict(
         name='Get Assistant',
         description='Get existing OpenAI assistant',
@@ -14,14 +12,17 @@ def get_details():
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(
-                        type='object',
-                        additionalProperties=False,
-                        required=['assistant_id'],
-                        properties=dict(
-                            assistant_id=dict(
-                                type="string"
-                            )
+                    type='object',
+                    additionalProperties=False,
+                    required=[
+                        'assistant_id'
+                    ],
+                    properties=dict(
+                        assistant_id=dict(
+                            type="string",
+                            min_length=1
                         )
+                    )
                 ),
                 outputs=OBJECT_SCHEMA
             )

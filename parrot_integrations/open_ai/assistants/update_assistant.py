@@ -1,7 +1,7 @@
 from parrot_integrations.open_ai.assistants import format_assistant, OBJECT_SCHEMA
 
 
-def get_details():
+def get_schema():
     return dict(
         name='Update Assistant',
         description='Update an existing OpenAi assistant',
@@ -40,5 +40,7 @@ def get_details():
 def process(inputs, integration, **kwargs):
     from parrot_integrations.open_ai import get_client
     client = get_client(integration=integration)
+    if 'model_id' in inputs:
+        inputs['model'] = inputs.pop('model_id')
     assistant = client.beta.assistants.update(**inputs)
     return format_assistant(assistant=assistant)

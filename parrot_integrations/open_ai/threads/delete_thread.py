@@ -1,5 +1,4 @@
-from parrot_integrations.open_ai.threads import OBJECT_SCHEMA
-def get_details():
+def get_schema():
     return dict(
         name='',
         description='',
@@ -7,7 +6,6 @@ def get_details():
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='',
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(
@@ -25,7 +23,7 @@ def get_details():
                 outputs=dict(
                     type='object',
                     additionalProperties=True,
-                    required=['thread_id'],
+                    required=['thread_id', 'deleted'],
                     properties=dict(
                         thread_id=dict(
                             type='string'

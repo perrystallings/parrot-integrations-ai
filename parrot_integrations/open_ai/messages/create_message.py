@@ -1,32 +1,51 @@
-def get_details():
+from parrot_integrations.open_ai.messages import OBJECT_SCHEMA, format_message
+
+
+def get_schema():
     return dict(
-        name='',
-        description='',
+        name='Create Message',
+        description='Create Message in Thread',
         is_trigger=False,
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='',
             required=['inputs', 'outputs'],
             properties=dict(
                 inputs=dict(
                     type='object',
                     additionalProperties=False,
-                    required=[],
+                    required=[
+                        'thread_id',
+                        'content'
+                    ],
                     properties=dict(
+                        thread_id=dict(
+                            type='string'
+                        ),
+                        content=dict(
+                            type='string'
+                        ),
+                        file_ids=dict(
+                            type='array',
+                            items=dict(
+                                type="string"
+                            )
+                        ),
                     )
                 ),
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[],
-                    properties=dict()
-                ),
+                outputs=OBJECT_SCHEMA
             )
         )
     )
 
 
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
+def process(inputs, integration, **kwargs):
     from parrot_integrations.open_ai import get_client
     client = get_client(integration=integration)
+    message = client.beta.threads.messages.create(
+        thread_id=inputs['thread_id'],
+        content=inputs['content'],
+        file_ids=inputs.get('file_ids'),
+        role='user'
+    )
+    return format_message(message=message)

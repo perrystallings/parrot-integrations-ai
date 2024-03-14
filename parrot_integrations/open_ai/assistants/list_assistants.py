@@ -1,6 +1,7 @@
 from parrot_integrations.open_ai.assistants import OBJECT_SCHEMA, format_assistant
 
-def get_details():
+
+def get_schema():
     return dict(
         name='List Assistants',
         description='List Existing OpenAI assistants',
